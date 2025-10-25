@@ -1,5 +1,6 @@
 ﻿using RLNET;
 using RougeRogue.Core;
+using RougeRogue.Systems;
 
 namespace RogueSharpV3Tutorial
 {
@@ -32,6 +33,8 @@ namespace RogueSharpV3Tutorial
 
         public static void Main()
         {
+            
+
             // This must be the exact name of the bitmap font file we are using or it will error.
             string fontFileName = "terminal8x8.png";
             // The title will appear at the top of the console window
@@ -45,13 +48,22 @@ namespace RogueSharpV3Tutorial
             _statConsole = new RLConsole(_statWidth, _statHeight);
             _inventoryConsole = new RLConsole(_inventoryWidth, _inventoryHeight);
 
+            MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight);
+            DungeonMap = mapGenerator.CreateMap();
+
             // Set up a handler for RLNET's Update event
             _rootConsole.Update += OnRootConsoleUpdate;
             // Set up a handler for RLNET's Render event
             _rootConsole.Render += OnRootConsoleRender;
             // Begin RLNET's game loop
             _rootConsole.Run();
+
+
+            
         }
+
+        public static DungeonMap DungeonMap { get; private set; }
+
 
         // Event handler for RLNET's Update event
         private static void OnRootConsoleUpdate(object sender, UpdateEventArgs e)
@@ -88,8 +100,15 @@ namespace RogueSharpV3Tutorial
         // Event handler for RLNET's Render event
         private static void OnRootConsoleRender(object sender, UpdateEventArgs e)
         {
+
+            DungeonMap.Draw(_mapConsole);
             // Tell RLNET to draw the console that we set
             _rootConsole.Draw();
+
+
+            
         }
     }
+
+
 }
