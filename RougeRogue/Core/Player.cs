@@ -13,7 +13,7 @@ namespace RougeRogue.Core
             Awareness = 15;
             Name = "Rogue";
             Color = Colors.Player;
-            Symbol = '@';
+            Symbol = 'X';
             X = 10;
             Y = 10;
         }
