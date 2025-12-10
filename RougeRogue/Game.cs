@@ -80,7 +80,7 @@ namespace RogueSharpV3Tutorial
             RLConsole.Blit(_inventoryConsole, 0, 0, _inventoryWidth, _inventoryHeight, _rootConsole, 0, 0);
             // Tell RLNET to draw the console that we set
             _rootConsole.Draw();
-            Player.Draw(_mapConsole, DungeonMap)
+            Player.Draw(_mapConsole, DungeonMap);
         }
     }
 }
