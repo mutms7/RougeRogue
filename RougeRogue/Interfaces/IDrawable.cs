@@ -16,5 +16,4 @@ namespace RougeRogue.Interfaces
         int Y { get; set; }
         void Draw(RLConsole console, IMap map);
     }
-    
 }

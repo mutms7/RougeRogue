@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RougeRogue.Core;
+using System.Drawing;
+using System.Xml.Linq;
 
 namespace RougeRogue.Core
 {
@@ -13,7 +11,7 @@ namespace RougeRogue.Core
             Awareness = 15;
             Name = "Rogue";
             Color = Colors.Player;
-            Symbol = 'X';
+            Symbol = '@';
             X = 10;
             Y = 10;
         }

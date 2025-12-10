@@ -1,17 +1,26 @@
 ﻿using RLNET;
 using RogueSharp;
-using RogueSharpV3Tutorial;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RougeRogue.Core
+using RougeRogue.Core;
+namespace  RougeRogue.Core
 {
     // Our custom DungeonMap class extends the base RogueSharp Map class
     public class DungeonMap : Map
     {
+        // This method will be called any time we move the player to update field-of-view
+        public void UpdatePlayerFieldOfView()
+        {
+            Player player = Game.Player;
+            // Compute the field-of-view based on the player's location and awareness
+            ComputeFov(player.X, player.Y, player.Awareness, true);
+            // Mark all cells in field-of-view as having been explored
+            foreach (Cell cell in GetAllCells())
+            {
+                if (IsInFov(cell.X, cell.Y))
+                {
+                    SetCellProperties(cell.X, cell.Y, cell.IsTransparent, cell.IsWalkable, true);
+                }
+            }
+        }
         // The Draw method will be called each time the map is updated
         // It will render all of the symbols/colors for each cell to the map sub console
         public void Draw(RLConsole mapConsole)
@@ -22,7 +31,6 @@ namespace RougeRogue.Core
                 SetConsoleSymbolForCell(mapConsole, cell);
             }
         }
-
         private void SetConsoleSymbolForCell(RLConsole console, Cell cell)
         {
             // When we haven't explored a cell yet, we don't want to draw anything
@@ -30,7 +38,6 @@ namespace RougeRogue.Core
             {
                 return;
             }
-
             // When a cell is currently in the field-of-view it should be drawn with ligher colors
             if (IsInFov(cell.X, cell.Y))
             {
@@ -55,22 +62,6 @@ namespace RougeRogue.Core
                 else
                 {
                     console.Set(cell.X, cell.Y, Colors.Wall, Colors.WallBackground, '#');
-                }
-            }
-        }
-
-        // This method will be called any time we move the player to update field-of-view
-        public void UpdatePlayerFieldOfView()
-        {
-            Player player = Game.Player;
-            // Compute the field-of-view based on the player's location and awareness
-            ComputeFov(player.X, player.Y, player.Awareness, true);
-            // Mark all cells in field-of-view as having been explored
-            foreach (Cell cell in GetAllCells())
-            {
-                if (IsInFov(cell.X, cell.Y))
-                {
-                    SetCellProperties(cell.X, cell.Y, cell.IsTransparent, cell.IsWalkable, true);
                 }
             }
         }

@@ -1,12 +1,8 @@
 ﻿using RLNET;
 using RogueSharp;
 using RougeRogue.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using RougeRogue.Core;
+using RougeRogue.Interfaces;
 namespace RougeRogue.Core
 {
     public class Actor : IActor, IDrawable
@@ -14,7 +10,6 @@ namespace RougeRogue.Core
         // IActor
         public string Name { get; set; }
         public int Awareness { get; set; }
-
         // IDrawable
         public RLColor Color { get; set; }
         public char Symbol { get; set; }
@@ -27,7 +22,6 @@ namespace RougeRogue.Core
             {
                 return;
             }
-
             // Only draw the actor with the color and symbol when they are in field-of-view
             if (map.IsInFov(X, Y))
             {
