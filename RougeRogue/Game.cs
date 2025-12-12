@@ -31,6 +31,7 @@ namespace RougeRogue
         public static DungeonMap DungeonMap { get; private set; }
         public static void Main()
         {
+
             // This must be the exact name of the bitmap font file we are using or it will error.
             string fontFileName = "terminal8x8.png";
             // The title will appear at the top of the console window
@@ -42,6 +43,13 @@ namespace RougeRogue
             _messageConsole = new RLConsole(_messageWidth, _messageHeight);
             _statConsole = new RLConsole(_statWidth, _statHeight);
             _inventoryConsole = new RLConsole(_inventoryWidth, _inventoryHeight);
+            // Set background color and text for each console so that we can verify they are in the correct positions
+            _messageConsole.SetBackColor(0, 0, _messageWidth, _messageHeight, Swatch.DbDeepWater);
+            _messageConsole.Print(1, 1, "Messages", Colors.TextHeading);
+            _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Swatch.DbOldStone);
+            _statConsole.Print(1, 1, "Stats", Colors.TextHeading);
+            _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Swatch.DbWood);
+            _inventoryConsole.Print(1, 1, "Inventory", Colors.TextHeading);
             Player = new Player();
             MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight);
             DungeonMap = mapGenerator.CreateMap();
@@ -56,15 +64,7 @@ namespace RougeRogue
         // Event handler for RLNET's Update event
         private static void OnRootConsoleUpdate(object sender, UpdateEventArgs e)
         {
-            // Set background color and text for each console so that we can verify they are in the correct positions
-            _mapConsole.SetBackColor(0, 0, _mapWidth, _mapHeight, Colors.FloorBackground);
-            _mapConsole.Print(1, 1, "Map", Colors.TextHeading);
-            _messageConsole.SetBackColor(0, 0, _messageWidth, _messageHeight, Swatch.DbDeepWater);
-            _messageConsole.Print(1, 1, "Messages", Colors.TextHeading);
-            _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Swatch.DbOldStone);
-            _statConsole.Print(1, 1, "Stats", Colors.TextHeading);
-            _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Swatch.DbWood);
-            _inventoryConsole.Print(1, 1, "Inventory", Colors.TextHeading);
+            
         }
         // Event handler for RLNET's Render event
         private static void OnRootConsoleRender(object sender, UpdateEventArgs e)
