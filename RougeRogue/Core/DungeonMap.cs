@@ -65,5 +65,36 @@ namespace  RougeRogue.Core
                 }
             }
         }
+
+        // true when actor can be placed, false otherwise
+        public bool SetActorPosition(Actor actor, int x, int y)
+        {
+            // allow actor placement if cell is walkable
+            if (GetCell(x, y).IsWalkable)
+            {
+                // previous cell is walkable
+                SetIsWalkable(actor.X, actor.Y, true);
+                // update the actor's position
+                actor.X = x;
+                actor.Y = y;
+                // the new cell the actor is on is now not walkable
+                SetIsWalkable(actor.X, actor.Y, false);
+                // don't forget to update the field of view if we repositioned
+                if (actor is Player)
+                {
+                    UpdatePlayerFieldOfView();
+                }
+                return true;
+            }
+            return false;
+        }
+
+
+        // helper method for setting IsWalkable on a Cell
+        public void SetIsWalkable(int x, int y, bool IsWalkable)
+        {
+            Cell cell = GetCell(x, y);
+            SetCellProperties(cell.X, cell.Y, cell.IsTransparent, IsWalkable, cell.IsExplored);
+        }
     }
 }
