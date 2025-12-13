@@ -47,6 +47,36 @@ namespace RougeRogue.Systems
                 int roomXPosition = Game.Random.Next(0, _width - roomWidth - 1);
                 int roomYPosition = Game.Random.Next(0, _height - roomHeight - 1);
 
+                // all rooms are rectangles
+                var newRoom = new Rectangle (roomXPosition, roomYPosition, roomWidth, roomHeight);
+
+                bool newRoomIntersects = _map.Rooms.Any(room => newRoom.Intersects(room));
+
+                // no intersection means add to list of rooms
+                if (!newRoomIntersects)
+                {
+                    _map.Rooms.Add(newRoom);
+                }
+            }
+
+            foreach (Rectangle room in _map.Rooms)
+            {
+                CreateRoom(room);
+            }
+
+            return _map;
+        }
+
+        // given a rectangular area on a map
+        // set cell properties to true on that area
+        private void CreateRoom(Rectangle room)
+        {
+            for (int x = room.Left + 1; x < room.Right; x++)
+            {
+                for (int y = room.Top + 1; y < room.Bottom; y++)
+                {
+                    _map.SetCellProperties(x, y, true, true, true);
+                }
             }
         }
     }
