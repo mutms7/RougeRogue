@@ -3,6 +3,7 @@ using RougeRogue.Core;
 using RougeRogue.Systems;
 using RougeRogue.Core;
 using RougeRogue.Systems;
+using RogueSharp.Random;
 namespace RougeRogue
 {
     public static class Game
@@ -31,13 +32,25 @@ namespace RougeRogue
         private static RLConsole _inventoryConsole;
         public static Player Player { get; private set; }
         public static DungeonMap DungeonMap { get; private set; }
+
+
+        // singleton of IRandom used as a seen for generating random numbers
+
+        public static IRandom Random { get; private set; }
+
         public static void Main()
         {
+            int seed = (int)DateTime.UtcNow.Ticks;
+            Random = new DotNetRandom(seed);
+
+            // The title will appear at the top of the console window, with the seed used
+            string consoleTitle = $"RougeSharp V3 Tutorial - Level 1 - Seed {seed}";
 
             // This must be the exact name of the bitmap font file we are using or it will error.
             string fontFileName = "terminal8x8.png";
-            // The title will appear at the top of the console window
-            string consoleTitle = "RougeSharp V3 Tutorial - Level 1";
+
+            
+
             // Tell RLNet to use the bitmap font that we specified and that each tile is 8 x 8 pixels
             _rootConsole = new RLRootConsole(fontFileName, _screenWidth, _screenHeight, 8, 8, 1f, consoleTitle);
             // Initialize the sub consoles that we will Blit to the root console

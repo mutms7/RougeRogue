@@ -6,6 +6,13 @@ namespace  RougeRogue.Core
     // Our custom DungeonMap class extends the base RogueSharp Map class
     public class DungeonMap : Map
     {
+        public List<Rectangle> Rooms;
+
+        public DungeonMap()
+        {
+            // Initialize the list of rooms when we create a new DungeonMap
+            Rooms = new List<Rectangle>();
+        }
         // This method will be called any time we move the player to update field-of-view
         public void UpdatePlayerFieldOfView()
         {
