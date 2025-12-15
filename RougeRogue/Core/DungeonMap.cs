@@ -103,5 +103,16 @@ namespace  RougeRogue.Core
             Cell cell = GetCell(x, y);
             SetCellProperties(cell.X, cell.Y, cell.IsTransparent, IsWalkable, cell.IsExplored);
         }
+
+        // called by MapGenerator after map is generated to add player to map
+        public void AddPlayer(Player player)
+        {
+            Game.Player = player;
+            SetIsWalkable(player.X, player.Y, false);
+            UpdatePlayerFieldOfView();
+        }
+
+        
+        
     }
 }

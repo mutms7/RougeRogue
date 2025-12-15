@@ -64,6 +64,31 @@ namespace RougeRogue.Systems
                 CreateRoom(room);
             }
 
+
+            // for each room, except first room, create hallway from previous room to this room
+            // creates _map.Rooms.Count-1 hallways
+            for (int r = 1; r < _map.Rooms.Count; r++)
+            {
+                // get center of the rooms
+                int previousRoomCenterX = _map.Rooms[r - 1].Center.X;
+                int previousRoomCenterY = _map.Rooms[r - 1].Center.Y;
+                int currentRoomCenterX = _map.Rooms[r].Center.X;
+                int currentRoomCenterY = _map.Rooms[r].Center.Y;
+
+                // 50/50 of L or 7 shape
+                if (Game.Random.Next(1, 2) == 1)
+                {
+                    CreateHorizontalTunnel(previousRoomCenterX, currentRoomCenterX, previousRoomCenterY);
+                    CreateVerticalTunnel(previousRoomCenterY, currentRoomCenterY, currentRoomCenterX);
+                } else
+                {
+                    CreateHorizontalTunnel(previousRoomCenterX, currentRoomCenterX, currentRoomCenterY);
+                    CreateVerticalTunnel(previousRoomCenterY, currentRoomCenterY, previousRoomCenterX);
+                }
+            }
+
+            PlacePlayer();
+
             return _map;
         }
 
@@ -79,5 +104,39 @@ namespace RougeRogue.Systems
                 }
             }
         }
+
+        private void PlacePlayer()
+        {
+            Player player = Game.Player;
+            if (player == null)
+            {
+                player = new Player();
+            }
+
+            player.X = _map.Rooms[0].Center.X;
+            player.Y = _map.Rooms[0].Center.Y;
+
+            _map.AddPlayer(player);
+
+        }
+
+        // make horizontal tunnel
+        private void CreateHorizontalTunnel(int xStart, int xEnd, int yPosition)
+        {
+            for (int x = Math.Min(xStart, xEnd); x <= Math.Max(xStart, xEnd); x++)
+            {
+                _map.SetCellProperties (x, yPosition, true, true);
+            }
+        }
+
+        // make vertical tunnel
+        private void CreateVerticalTunnel(int yStart, int yEnd, int xPosition)
+        {
+            for (int y = Math.Min(yStart, yEnd); y <= Math.Max(yStart, yEnd); y++)
+            {
+                _map.SetCellProperties(xPosition, y, true, true);
+            }
+        }
+
     }
 }

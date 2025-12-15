@@ -30,13 +30,14 @@ namespace RougeRogue
         private static readonly int _inventoryWidth = 80;
         private static readonly int _inventoryHeight = 11;
         private static RLConsole _inventoryConsole;
-        public static Player Player { get; private set; }
+        public static Player Player { get; set; }
         public static DungeonMap DungeonMap { get; private set; }
 
 
         // singleton of IRandom used as a seen for generating random numbers
 
         public static IRandom Random { get; private set; }
+
 
         public static void Main()
         {
@@ -68,7 +69,7 @@ namespace RougeRogue
             _statConsole.Print(1, 1, "Stats", Colors.TextHeading);
             _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Swatch.DbWood);
             _inventoryConsole.Print(1, 1, "Inventory", Colors.TextHeading);
-            Player = new Player();
+            
             MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight, 30, 15, 5);
             DungeonMap = mapGenerator.CreateMap();
             DungeonMap.UpdatePlayerFieldOfView();
