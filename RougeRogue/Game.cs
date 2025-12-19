@@ -32,6 +32,7 @@ namespace RougeRogue
         private static RLConsole _inventoryConsole;
         public static Player Player { get; set; }
         public static DungeonMap DungeonMap { get; private set; }
+        public static MessageLog MessageLog { get; private set; }
 
 
         // singleton of IRandom used as a seen for generating random numbers
