@@ -33,6 +33,8 @@ namespace RougeRogue
         public static Player Player { get; set; }
         public static DungeonMap DungeonMap { get; private set; }
         public static MessageLog MessageLog { get; private set; }
+        // Temporary member variable just to show our MessageLog is working
+        private static int _steps = 0;
 
 
         // singleton of IRandom used as a seen for generating random numbers
@@ -112,8 +114,11 @@ namespace RougeRogue
                 }
             }
 
+            // In OnRootConsoleUpdate() replace the if ( didPlayerAct ) block
             if (didPlayerAct)
             {
+                // Every time the player acts increment the steps and log it
+                MessageLog.Add($"Step # {++_steps}");
                 _renderRequired = true;
             }
         }
@@ -124,6 +129,7 @@ namespace RougeRogue
             if (_renderRequired)
             {
                 DungeonMap.Draw(_mapConsole);
+                MessageLog.Draw(_messageConsole);
                 Player.Draw(_mapConsole, DungeonMap);
                 // Blit the sub consoles to the root console in the correct locations
                 RLConsole.Blit(_mapConsole, 0, 0, _mapWidth, _mapHeight, _rootConsole, 0, _inventoryHeight);
