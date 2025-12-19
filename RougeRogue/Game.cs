@@ -64,8 +64,10 @@ namespace RougeRogue
             CommandSystem = new CommandSystem();
 
             // Set background color and text for each console so that we can verify they are in the correct positions
-            _messageConsole.SetBackColor(0, 0, _messageWidth, _messageHeight, Swatch.DbDeepWater);
-            _messageConsole.Print(1, 1, "Messages", Colors.TextHeading);
+            // Create a new MessageLog and print the random seed used to generate the level
+            MessageLog = new MessageLog();
+            MessageLog.Add("The rogue arrives on level 1");
+            MessageLog.Add($"Level created with seed '{seed}'");
             _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Swatch.DbOldStone);
             _statConsole.Print(1, 1, "Stats", Colors.TextHeading);
             _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Swatch.DbWood);
