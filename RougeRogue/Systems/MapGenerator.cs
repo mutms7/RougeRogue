@@ -59,10 +59,7 @@ namespace RougeRogue.Systems
                 }
             }
 
-            foreach (Rectangle room in _map.Rooms)
-            {
-                CreateRoom(room);
-            }
+            
 
 
             // for each room, except first room, create hallway from previous room to this room
@@ -85,6 +82,11 @@ namespace RougeRogue.Systems
                     CreateHorizontalTunnel(previousRoomCenterX, currentRoomCenterX, currentRoomCenterY);
                     CreateVerticalTunnel(previousRoomCenterY, currentRoomCenterY, previousRoomCenterX);
                 }
+            }
+
+            foreach (Rectangle room in _map.Rooms)
+            {
+                CreateRoom(room);
             }
 
             PlacePlayer();

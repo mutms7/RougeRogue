@@ -70,7 +70,7 @@ namespace RougeRogue
             _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Swatch.DbWood);
             _inventoryConsole.Print(1, 1, "Inventory", Colors.TextHeading);
             
-            MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight, 30, 15, 5);
+            MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight, 20, 15, 10);
             DungeonMap = mapGenerator.CreateMap();
             DungeonMap.UpdatePlayerFieldOfView();
             // Set up a handler for RLNET's Update event
