@@ -138,7 +138,7 @@ namespace RougeRogue.Core
                 _speed = value;
             }
         }
-}
+
         // IDrawable
         public RLColor Color { get; set; }
         public char Symbol { get; set; }

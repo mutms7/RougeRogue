@@ -33,8 +33,7 @@ namespace RougeRogue
         public static Player Player { get; set; }
         public static DungeonMap DungeonMap { get; private set; }
         public static MessageLog MessageLog { get; private set; }
-        // Temporary member variable just to show our MessageLog is working
-        private static int _steps = 0;
+       
 
 
         // singleton of IRandom used as a seen for generating random numbers
@@ -70,8 +69,7 @@ namespace RougeRogue
             MessageLog = new MessageLog();
             MessageLog.Add("The rogue arrives on level 1");
             MessageLog.Add($"Level created with seed '{seed}'");
-            _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Swatch.DbOldStone);
-            _statConsole.Print(1, 1, "Stats", Colors.TextHeading);
+            
             _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Swatch.DbWood);
             _inventoryConsole.Print(1, 1, "Inventory", Colors.TextHeading);
             
@@ -118,7 +116,6 @@ namespace RougeRogue
             if (didPlayerAct)
             {
                 // Every time the player acts increment the steps and log it
-                MessageLog.Add($"Step # {++_steps}");
                 _renderRequired = true;
             }
         }
@@ -131,6 +128,7 @@ namespace RougeRogue
                 DungeonMap.Draw(_mapConsole);
                 MessageLog.Draw(_messageConsole);
                 Player.Draw(_mapConsole, DungeonMap);
+                Player.DrawStats(_statConsole);
                 // Blit the sub consoles to the root console in the correct locations
                 RLConsole.Blit(_mapConsole, 0, 0, _mapWidth, _mapHeight, _rootConsole, 0, _inventoryHeight);
                 RLConsole.Blit(_statConsole, 0, 0, _statWidth, _statHeight, _rootConsole, _mapWidth, 0);
