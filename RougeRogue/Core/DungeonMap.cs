@@ -39,6 +39,10 @@ namespace  RougeRogue.Core
             {
                 SetConsoleSymbolForCell(mapConsole, cell);
             }
+            foreach (Monster monster in _monsters)
+            {
+                monster.Draw(mapConsole, this);
+            }
         }
         private void SetConsoleSymbolForCell(RLConsole console, Cell cell)
         {
