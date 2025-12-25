@@ -30,7 +30,7 @@ namespace RougeRogue.Systems
 
         public void Draw(RLConsole console)
         {
-            console.Clear();
+            
             string[] lines = _lines.ToArray();
 
             for (int i = 0; i < lines.Length; i++)
