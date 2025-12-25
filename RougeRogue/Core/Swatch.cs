@@ -9,52 +9,50 @@ namespace RougeRogue.Core
 {
     internal class Swatch
     {
-        // http://paletton.com/#uid=73d0u0k5qgb2NnT41jT74c8bJ8X
-        // Primary colors
-        public static RLColor PrimaryLightest = new RLColor(255, 255, 255);      // FFFFFF
-        public static RLColor PrimaryLighter = new RLColor(254, 149, 148);       // FE958A
-        public static RLColor Primary = new RLColor(207, 114, 109);              // Interpolated
-        public static RLColor PrimaryDarker = new RLColor(129, 79, 71);          // 816D68
-        public static RLColor PrimaryDarkest = new RLColor(201, 31, 12);         // C91A08
+        // Primary colors - Oranges (was Secondary #1)
+        public static RLColor PrimaryLightest = new RLColor(255, 235, 215);      // FFEBD7 - Very light orange
+        public static RLColor PrimaryLighter = new RLColor(255, 180, 120);       // FFB478 - Light orange
+        public static RLColor Primary = new RLColor(255, 140, 50);               // FF8C32 - Orange
+        public static RLColor PrimaryDarker = new RLColor(180, 80, 30);          // B4501E - Dark orange
+        public static RLColor PrimaryDarkest = new RLColor(110, 50, 20);         // 6E3214 - Very dark orange
 
-        // Secondary color #1
-        public static RLColor SecondaryLightest = new RLColor(152, 163, 148);    // 98A394
-        public static RLColor SecondaryLighter = new RLColor(123, 135, 118);     // 7B8776
-        public static RLColor Secondary = new RLColor(107, 119, 103);            // Interpolated
-        public static RLColor SecondaryDarker = new RLColor(97, 110, 91);        // 616E5B
-        public static RLColor SecondaryDarkest = new RLColor(69, 83, 64);        // 455340
+        // Secondary color #1 - Pure Reds (was Primary)
+        public static RLColor SecondaryLightest = new RLColor(255, 230, 230);    // FFE6E6 - Very light red/pink
+        public static RLColor SecondaryLighter = new RLColor(255, 150, 150);     // FF9696 - Light red
+        public static RLColor Secondary = new RLColor(220, 50, 50);              // DC3232 - Pure red
+        public static RLColor SecondaryDarker = new RLColor(150, 30, 30);        // 961E1E - Dark red
+        public static RLColor SecondaryDarkest = new RLColor(80, 10, 10);        // 500A0A - Very dark red
 
-        // Secondary color #2
-        public static RLColor AlternateLightest = new RLColor(180, 164, 167);    // B4A4A7
-        public static RLColor AlternateLighter = new RLColor(150, 131, 134);     // 968386
-        public static RLColor Alternate = new RLColor(122, 104, 104);            // 7A6868
-        public static RLColor AlternateDarker = new RLColor(91, 91, 74);         // 5B4F4A
-        public static RLColor AlternateDarkest = new RLColor(91, 91, 74);        // 5B474A
+        // Secondary color #2 - Yellows/Golds
+        public static RLColor AlternateLightest = new RLColor(255, 250, 220);    // FFFADC - Very light yellow
+        public static RLColor AlternateLighter = new RLColor(255, 220, 120);     // FFDC78 - Light yellow
+        public static RLColor Alternate = new RLColor(240, 180, 60);             // F0B43C - Gold
+        public static RLColor AlternateDarker = new RLColor(180, 130, 40);       // B48228 - Dark gold
+        public static RLColor AlternateDarkest = new RLColor(110, 80, 30);       // 6E501E - Very dark gold
 
-        // Complement colors
-        public static RLColor ComplimentLightest = new RLColor(64, 192, 93);     // 40C05D
-        public static RLColor ComplimentLighter = new RLColor(13, 175, 49);      // 0DAF31
-        public static RLColor Compliment = new RLColor(76, 122, 69);            // Interpolated
-        public static RLColor ComplimentDarker = new RLColor(81, 97, 69);        // 516145
-        public static RLColor ComplimentDarkest = new RLColor(8, 96, 30);        // 08601E
+        // Complement colors - Blues/Cyans (for enemies or special elements)
+        public static RLColor ComplimentLightest = new RLColor(200, 230, 255);   // C8E6FF - Very light blue
+        public static RLColor ComplimentLighter = new RLColor(100, 180, 220);    // 64B4DC - Light blue
+        public static RLColor Compliment = new RLColor(50, 120, 180);            // 3278B4 - Blue
+        public static RLColor ComplimentDarker = new RLColor(30, 70, 110);       // 1E466E - Dark blue
+        public static RLColor ComplimentDarkest = new RLColor(10, 30, 60);       // 0A1E3C - Very dark blue
 
-        // http://pixeljoint.com/forum/forum_posts.asp?TID=12795
-
-        public static RLColor DbDark = new RLColor(20, 12, 28);
-        public static RLColor DbOldBlood = new RLColor(68, 36, 52);
-        public static RLColor DbDeepWater = new RLColor(48, 52, 109);
-        public static RLColor DbOldStone = new RLColor(78, 74, 78);
-        public static RLColor DbWood = new RLColor(133, 76, 48);
-        public static RLColor DbVegetation = new RLColor(52, 101, 36);
-        public static RLColor DbBlood = new RLColor(208, 70, 72);
-        public static RLColor DbStone = new RLColor(117, 113, 97);
-        public static RLColor DbWater = new RLColor(89, 125, 206);
-        public static RLColor DbBrightWood = new RLColor(210, 125, 44);
-        public static RLColor DbMetal = new RLColor(133, 149, 161);
-        public static RLColor DbGrass = new RLColor(109, 170, 44);
-        public static RLColor DbSkin = new RLColor(210, 170, 153);
-        public static RLColor DbSky = new RLColor(109, 194, 202);
-        public static RLColor DbSun = new RLColor(218, 212, 94);
-        public static RLColor DbLight = new RLColor(222, 238, 214);
+        // Object colors - Adjusted to warm red/orange tones
+        public static RLColor DbDark = new RLColor(40, 10, 10);                  // 280A0A - Very dark red-black
+        public static RLColor DbOldBlood = new RLColor(120, 30, 30);             // 781E1E - Old blood red
+        public static RLColor DbDeepWater = new RLColor(80, 40, 50);             // 502832 - Deep red-purple
+        public static RLColor DbOldStone = new RLColor(90, 70, 60);              // 5A463C - Reddish brown stone
+        public static RLColor DbWood = new RLColor(150, 70, 40);                 // 964628 - Warm wood
+        public static RLColor DbVegetation = new RLColor(120, 80, 40);           // 785028 - Autumn vegetation
+        public static RLColor DbBlood = new RLColor(220, 60, 60);                // DC3C3C - Fresh blood
+        public static RLColor DbStone = new RLColor(130, 100, 80);               // 826450 - Warm stone
+        public static RLColor DbWater = new RLColor(180, 100, 100);              // B46464 - Red-tinted water
+        public static RLColor DbBrightWood = new RLColor(220, 120, 60);          // DC783C - Bright orange wood
+        public static RLColor DbMetal = new RLColor(160, 120, 110);              // A0786E - Copper/bronze metal
+        public static RLColor DbGrass = new RLColor(180, 120, 60);               // B4783C - Dry grass
+        public static RLColor DbSkin = new RLColor(240, 180, 150);               // F0B496 - Warm skin
+        public static RLColor DbSky = new RLColor(255, 180, 140);                // FFB48C - Sunset sky
+        public static RLColor DbSun = new RLColor(255, 200, 100);                // FFC864 - Warm sun
+        public static RLColor DbLight = new RLColor(255, 240, 220);              // FFF0DC - Warm light
     }
 }

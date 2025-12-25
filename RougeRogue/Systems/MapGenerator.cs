@@ -92,6 +92,7 @@ namespace RougeRogue.Systems
             }
 
             PlacePlayer();
+            PlaceMonsters();
 
             return _map;
         }

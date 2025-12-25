@@ -140,16 +140,16 @@ namespace  RougeRogue.Core
                         return new Point(x, y);
                     }
                 }
-                
+
             }
             return null;
         }
 
         public bool DoesRoomHaveWalkableSpace(Rectangle room)
         {
-            for (int i = 1; i < room.Width-2; i++)
+            for (int i = 1; i < room.Width - 2; i++)
             {
-                for (int j = 1; j < room.Height-2; j++)
+                for (int j = 1; j < room.Height - 2; j++)
                 {
                     if (IsWalkable(room.X + i, room.Y + j))
                     {
@@ -160,5 +160,5 @@ namespace  RougeRogue.Core
             return false;
         }
 
-
+    }
 }
