@@ -9,19 +9,19 @@ namespace RougeRogue.Core
 {
     internal class Swatch
     {
-        // Primary colors - Oranges (was Secondary #1)
-        public static RLColor PrimaryLightest = new RLColor(255, 235, 215);      // FFEBD7 - Very light orange
-        public static RLColor PrimaryLighter = new RLColor(255, 180, 120);       // FFB478 - Light orange
-        public static RLColor Primary = new RLColor(255, 140, 50);               // FF8C32 - Orange
-        public static RLColor PrimaryDarker = new RLColor(180, 80, 30);          // B4501E - Dark orange
-        public static RLColor PrimaryDarkest = new RLColor(110, 50, 20);         // 6E3214 - Very dark orange
+        // Primary colors - Pure Reds
+        public static RLColor PrimaryLightest = new RLColor(255, 230, 230);      // FFE6E6 - Very light red/pink
+        public static RLColor PrimaryLighter = new RLColor(255, 150, 150);       // FF9696 - Light red
+        public static RLColor Primary = new RLColor(220, 50, 50);                // DC3232 - Pure red
+        public static RLColor PrimaryDarker = new RLColor(150, 30, 30);          // 961E1E - Dark red
+        public static RLColor PrimaryDarkest = new RLColor(80, 10, 10);          // 500A0A - Very dark red
 
-        // Secondary color #1 - Pure Reds (was Primary)
-        public static RLColor SecondaryLightest = new RLColor(255, 230, 230);    // FFE6E6 - Very light red/pink
-        public static RLColor SecondaryLighter = new RLColor(255, 150, 150);     // FF9696 - Light red
-        public static RLColor Secondary = new RLColor(220, 50, 50);              // DC3232 - Pure red
-        public static RLColor SecondaryDarker = new RLColor(150, 30, 30);        // 961E1E - Dark red
-        public static RLColor SecondaryDarkest = new RLColor(80, 10, 10);        // 500A0A - Very dark red
+        // Secondary color #1 - Oranges
+        public static RLColor SecondaryLightest = new RLColor(255, 235, 215);    // FFEBD7 - Very light orange
+        public static RLColor SecondaryLighter = new RLColor(255, 180, 120);     // FFB478 - Light orange
+        public static RLColor Secondary = new RLColor(255, 140, 50);             // FF8C32 - Orange
+        public static RLColor SecondaryDarker = new RLColor(180, 80, 30);        // B4501E - Dark orange
+        public static RLColor SecondaryDarkest = new RLColor(110, 50, 20);       // 6E3214 - Very dark orange
 
         // Secondary color #2 - Yellows/Golds
         public static RLColor AlternateLightest = new RLColor(255, 250, 220);    // FFFADC - Very light yellow
