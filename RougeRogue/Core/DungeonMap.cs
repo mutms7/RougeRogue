@@ -47,8 +47,13 @@ namespace  RougeRogue.Core
             int i = 0;
             foreach (Monster monster in _monsters)
             {
-                monster.DrawStats(mapConsole, i);
-                i++;
+                // When the monster is in the field-of-view also draw their stats
+                if (IsInFov(monster.X, monster.Y))
+                {
+                    // Pass in the index to DrawStats and increment it afterwards
+                    monster.DrawStats(statConsole, i);
+                    i++;
+                }
             }
         }
         private void SetConsoleSymbolForCell(RLConsole console, Cell cell)
