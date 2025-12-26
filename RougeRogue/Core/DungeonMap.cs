@@ -39,14 +39,12 @@ namespace  RougeRogue.Core
             {
                 SetConsoleSymbolForCell(mapConsole, cell);
             }
-            foreach (Monster monster in _monsters)
-            {
-                monster.Draw(mapConsole, this);
-            }
+
 
             int i = 0;
             foreach (Monster monster in _monsters)
             {
+                monster.Draw(mapConsole, this);
                 // When the monster is in the field-of-view also draw their stats
                 if (IsInFov(monster.X, monster.Y))
                 {
