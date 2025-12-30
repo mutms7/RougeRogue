@@ -171,6 +171,19 @@ namespace  RougeRogue.Core
         }
 
 
+        
+
+        public void RemoveMonster(Monster monster)
+        {
+            _monsters.Remove(monster);
+            // make cell walkable
+            SetIsWalkable(monster.X, monster.Y, true);
+        }
+
+        public Monster GetMonsterAt(int x, int y)
+        {
+            return _monsters.FirstOrDefault(m => m.X == x && m.Y == y);
+        }
     }
 
 }
