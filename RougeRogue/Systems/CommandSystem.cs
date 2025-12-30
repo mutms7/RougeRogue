@@ -137,42 +137,39 @@ namespace RougeRogue.Systems
             
         }
 
-        
-       
-
-        // Apply any damage that wasn't blocked to the defender
-        private static void ResolveDamage(Actor defender, int damage)
+        // apply any damage
+        private static void ResolveDmaage(Actor defender, int damage)
         {
             if (damage > 0)
             {
                 defender.Health = defender.Health - damage;
 
-                Game.MessageLog.Add($"  {defender.Name} was hit for {damage} damage");
+                Game.MessageLog.Add($"  {defender.Name} took {damage} damage");
 
                 if (defender.Health <= 0)
                 {
                     ResolveDeath(defender);
                 }
-            }
-            else
+            } else
             {
-                Game.MessageLog.Add($"  {defender.Name} blocked all damage");
+                Game.MessageLog.Add($"  {defender.Name} took no damage");
             }
         }
 
-        // Remove the defender from the map and add some messages upon death.
-        private static void ResolveDeath(Actor defender)
+        // remove defender and add messages
+        private static void ResolveDeath(Actor dead)
         {
-            if (defender is Player)
+            if (dead is Player)
             {
-                Game.MessageLog.Add($"  {defender.Name} was killed, GAME OVER MAN!");
+                Game.MessageLog.Add($"  {dead.Name} was slain, game over!");
             }
-            else if (defender is Monster)
+            else if (dead is Monster)
             {
-                Game.DungeonMap.RemoveMonster((Monster)defender);
-
-                Game.MessageLog.Add($"  {defender.Name} died and dropped {defender.Gold} gold");
+                Game.MessageLog.Add($"  {dead.Name} was slain and dropped {dead.Gold} GP");
+                Game.DungeonMap.RemoveMonster((Monster)dead);
             }
         }
+
+
     }
 }
