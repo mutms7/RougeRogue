@@ -111,54 +111,34 @@ namespace RougeRogue.Systems
 
             if (hits > 0)
             {
-                attackMessage.AppendFormat("scording {0} hits.", hits);
+                attackMessage.AppendFormat("landing {0} hits.", hits);
                 defenseMessage.AppendFormat("  {0} defends and rolls: ", defender.Name);
+
+
                 DiceExpression defenseDice = new DiceExpression().Dice(defender.Defense, 100);
                 DiceResult defenseResult = defenseDice.Roll();
 
                 foreach (TermResult termResult in defenseResult.Results)
                 {
                     defenseMessage.Append(termResult.Value + ", ");
-
-                }
-            }
-            
-        }
-
-        
-        // The defender rolls based on his stats to see if he blocks any of the hits from the attacker
-        private static int ResolveDefense(Actor defender, int hits, StringBuilder attackMessage, StringBuilder defenseMessage)
-        {
-            int blocks = 0;
-
-            if (hits > 0)
-            {
-                attackMessage.AppendFormat("scoring {0} hits.", hits);
-                defenseMessage.AppendFormat("  {0} defends and rolls: ", defender.Name);
-
-                // Roll a number of 100-sided dice equal to the Defense value of the defendering actor
-                DiceExpression defenseDice = new DiceExpression().Dice(defender.Defense, 100);
-                DiceResult defenseRoll = defenseDice.Roll();
-
-                // Look at the face value of each single die that was rolled
-                foreach (TermResult termResult in defenseRoll.Results)
-                {
-                    defenseMessage.Append(termResult.Value + ", ");
-                    // Compare the value to 100 minus the defense chance and add a block if it's greater
                     if (termResult.Value >= 100 - defender.DefenseChance)
                     {
                         blocks++;
                     }
+
                 }
-                defenseMessage.AppendFormat("resulting in {0} blocks.", blocks);
-            }
-            else
+                defenseMessage.AppendFormat("blocking {0} times.", blocks);
+            } else
             {
-                attackMessage.Append("and misses completely.");
+                attackMessage.AppendFormat("missing all attacks.");
             }
 
             return blocks;
+            
         }
+
+        
+       
 
         // Apply any damage that wasn't blocked to the defender
         private static void ResolveDamage(Actor defender, int damage)
