@@ -138,7 +138,7 @@ namespace RougeRogue.Systems
         }
 
         // apply any damage
-        private static void ResolveDmaage(Actor defender, int damage)
+        private static void ResolveDamage(Actor defender, int damage)
         {
             if (damage > 0)
             {
