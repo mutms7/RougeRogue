@@ -50,6 +50,15 @@ namespace RougeRogue.Systems
                 return true;
             }
 
+            Monster monster = Game.DungeonMap.GetMonsterAt(x, y);
+
+            if (monster != null)
+            {
+                Attack(Game.Player, monster);
+                return true;
+            }
+            
+
             return false;
         }
     }
