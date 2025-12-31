@@ -11,11 +11,29 @@ namespace RougeRogue.Systems
     {
         private int _time;
         private readonly SortedDictionary<int, List<IScheduleable>> _scheduleables;
-        
+
         public SchedulingSystem()
         {
-
+            _time = 0;
+            _scheduleables = new SortedDictionary<int, List<IScheduleable>>();
         }
+
+        // add object to schedule
+        // place it at current time + object's time
+
+        public void Add(IScheduleable scheduleable)
+        {
+            int key = _time + scheduleable.Time;
+            if (!_scheduleables.ContainsKey(key))
+            {
+                _scheduleables.Add(key, new List<IScheduleable>());
+            }
+            _scheduleables[key].Add(scheduleable);
+        }
+
+        // remove object from schedule
+        // used when monster is killed, etc
+
     }
     
     public class SchedulingSystem
