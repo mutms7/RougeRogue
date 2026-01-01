@@ -39,7 +39,7 @@ namespace RougeRogue.Core.Behaviors
                 dungeonMap.SetIsWalkable(player.X, player.Y, true);
 
                 PathFinder pathFinder = new PathFinder(dungeonMap);
-                Path path = null;
+                RogueSharp.Path path = null;
 
                 try
                 {

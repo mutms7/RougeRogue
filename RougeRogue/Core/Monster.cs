@@ -1,4 +1,6 @@
 ﻿using RLNET;
+using RougeRogue.Core.Behaviors;
+using RougeRogue.Systems;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,13 @@ namespace RougeRogue.Core
 {
     public class Monster : Actor
     {
-        
+        public int? TurnsAlerted { get; set; }
+
+        public virtual void PerformAction(CommandSystem commandSystem)
+        {
+            var behavior = new StandardMoveAndAttack();
+            behavior.Act(this, commandSystem);
+        }
 
         public void DrawStats(RLConsole statConsole, int position)
         {

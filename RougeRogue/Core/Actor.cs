@@ -5,7 +5,7 @@ using RougeRogue.Core;
 using RougeRogue.Interfaces;
 namespace RougeRogue.Core
 {
-    public class Actor : IActor, IDrawable
+    public class Actor : IActor, IDrawable, IScheduleable
     {
         // IActor
         private int _attack;
@@ -139,11 +139,24 @@ namespace RougeRogue.Core
             }
         }
 
+        
+
         // IDrawable
         public RLColor Color { get; set; }
         public char Symbol { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
+
+        //IScheduleable
+        public int Time
+        {
+            get
+            {
+                return Speed;
+            }
+        }
+
+
         public void Draw(RLConsole console, IMap map)
         {
             // Don't draw actors in cells that haven't been explored

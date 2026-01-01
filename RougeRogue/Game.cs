@@ -33,6 +33,7 @@ namespace RougeRogue
         public static Player Player { get; set; }
         public static DungeonMap DungeonMap { get; private set; }
         public static MessageLog MessageLog { get; private set; }
+        public static SchedulingSystem SchedulingSystem { get; private set; }
        
 
 
@@ -63,6 +64,7 @@ namespace RougeRogue
             _inventoryConsole = new RLConsole(_inventoryWidth, _inventoryHeight);
 
             CommandSystem = new CommandSystem();
+            SchedulingSystem = new SchedulingSystem();
 
             // Set background color and text for each console so that we can verify they are in the correct positions
             // Create a new MessageLog and print the random seed used to generate the level
@@ -88,28 +90,42 @@ namespace RougeRogue
         {
             bool didPlayerAct = false;
             RLKeyPress keyPress = _rootConsole.Keyboard.GetKeyPress();
-            if (keyPress != null)
+            if (CommandSystem.IsPlayerTurn)
             {
-                if (keyPress.Key == RLKey.Up)
+                if (keyPress != null)
                 {
-                    didPlayerAct = CommandSystem.MovePlayer(Direction.Up);
+                    if (keyPress.Key == RLKey.Up)
+                    {
+                        didPlayerAct = CommandSystem.MovePlayer(Direction.Up);
+                    }
+                    else if (keyPress.Key == RLKey.Down)
+                    {
+                        didPlayerAct = CommandSystem.MovePlayer(Direction.Down);
+                    }
+                    else if (keyPress.Key == RLKey.Left)
+                    {
+                        didPlayerAct = CommandSystem.MovePlayer(Direction.Left);
+                    }
+                    else if (keyPress.Key == RLKey.Right)
+                    {
+                        didPlayerAct = CommandSystem.MovePlayer(Direction.Right);
+                    }
+                    else if (keyPress.Key == RLKey.Escape)
+                    {
+                        _rootConsole.Close();
+                    }
                 }
-                else if (keyPress.Key == RLKey.Down)
+
+                if (didPlayerAct)
                 {
-                    didPlayerAct = CommandSystem.MovePlayer(Direction.Down);
+                    _renderRequired = true;
+                    CommandSystem.EndPlayerTurn();
                 }
-                else if (keyPress.Key == RLKey.Left)
-                {
-                    didPlayerAct = CommandSystem.MovePlayer(Direction.Left);
-                }
-                else if (keyPress.Key == RLKey.Right)
-                {
-                    didPlayerAct = CommandSystem.MovePlayer(Direction.Right);
-                }
-                else if (keyPress.Key == RLKey.Escape)
-                {
-                    _rootConsole.Close();
-                }
+            }
+            else
+            {
+                _renderRequired = true;
+                CommandSystem.ActivateMonsters();
             }
 
             // In OnRootConsoleUpdate() replace the if ( didPlayerAct ) block

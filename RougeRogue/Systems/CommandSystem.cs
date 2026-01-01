@@ -1,5 +1,7 @@
-﻿using RogueSharp.DiceNotation;
+﻿using RogueSharp;
+using RogueSharp.DiceNotation;
 using RougeRogue.Core;
+using RougeRogue.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,17 @@ namespace RougeRogue.Systems
 {
     public class CommandSystem
     {
+        public bool IsPlayerTurn { get; set; }
+
+        public void EndPlayerTurn()
+        {
+            IsPlayerTurn = false;
+        }
+
         
+
+
+
         // Return value is true if the player was able to move
         // false when the player couldn't move, such as trying to move into a wall
         public bool MovePlayer(Direction direction)
@@ -167,6 +179,38 @@ namespace RougeRogue.Systems
             {
                 Game.MessageLog.Add($"  {dead.Name} was slain and dropped {dead.Gold} GP");
                 Game.DungeonMap.RemoveMonster((Monster)dead);
+            }
+        }
+
+        public void ActivateMonsters()
+        {
+            IScheduleable scheduleable = Game.SchedulingSystem.Get();
+            if (scheduleable is Player)
+            {
+                IsPlayerTurn = true;
+                Game.SchedulingSystem.Add(Game.Player);
+            }
+            else
+            {
+                Monster monster = scheduleable as Monster;
+                if (monster != null)
+                {
+                    monster.PerformAction(this);
+                    Game.SchedulingSystem.Add(monster);
+                }
+
+                ActivateMonsters();
+            }
+        }
+
+        public void MoveMonster(Monster monster, Cell cell)
+        {
+            if (!Game.DungeonMap.SetActorPosition(monster, cell.X, cell.Y))
+            {
+                if (Game.Player.X == cell.X && Game.Player.Y == cell.Y)
+                {
+                    Attack(monster, Game.Player);
+                }
             }
         }
 

@@ -126,6 +126,7 @@ namespace  RougeRogue.Core
             Game.Player = player;
             SetIsWalkable(player.X, player.Y, false);
             UpdatePlayerFieldOfView();
+            Game.SchedulingSystem.Add(player);
         }
 
 
@@ -134,6 +135,8 @@ namespace  RougeRogue.Core
             _monsters.Add(monster);
             // cell not walkable
             SetIsWalkable(monster.X, monster.Y, false);
+            Game.SchedulingSystem.Add(monster);
+
         }
 
 
@@ -178,6 +181,8 @@ namespace  RougeRogue.Core
             _monsters.Remove(monster);
             // make cell walkable
             SetIsWalkable(monster.X, monster.Y, true);
+            Game.SchedulingSystem.Remove(monster);
+
         }
 
         public Monster GetMonsterAt(int x, int y)
