@@ -4,6 +4,7 @@ using RougeRogue.Systems;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,37 +46,21 @@ namespace RougeRogue.Core.Behaviors
                     path = pathFinder.ShortestPath(
                         dungeonMap.GetCell(monster.X, monster.Y),
                         dungeonMap.GetCell(player.X, player.Y));
-                        
-                }
-            }
-        }
-    }
-   
-                try
-                {
-                    path = pathFinder.ShortestPath(
-                    dungeonMap.GetCell(monster.X, monster.Y),
-                    dungeonMap.GetCell(player.X, player.Y));
+
                 }
                 catch (PathNotFoundException)
                 {
-                    // The monster can see the player, but cannot find a path to him
-                    // This could be due to other monsters blocking the way
-                    // Add a message to the message log that the monster is waiting
-                    Game.MessageLog.Add($"{monster.Name} waits for a turn");
+                    // monster can see but cannot find path
+                    Game.MessageLog.Add($"{monster.Name} waits");
                 }
 
-                // Don't forget to set the walkable status back to false
                 dungeonMap.SetIsWalkable(monster.X, monster.Y, false);
                 dungeonMap.SetIsWalkable(player.X, player.Y, false);
 
-                // In the case that there was a path, tell the CommandSystem to move the monster
                 if (path != null)
                 {
                     try
                     {
-                        // TODO: This should be path.StepForward() but there is a bug in RogueSharp V3
-                        // The bug is that a Path returned from a PathFinder does not include the source Cell
                         commandSystem.MoveMonster(monster, path.Steps.First());
                     }
                     catch (NoMoreStepsException)
@@ -83,18 +68,17 @@ namespace RougeRogue.Core.Behaviors
                         Game.MessageLog.Add($"{monster.Name} growls in frustration");
                     }
                 }
+            }
 
-                monster.TurnsAlerted++;
+            monster.TurnsAlerted++;
 
-                // Lose alerted status every 15 turns. 
-                // As long as the player is still in FoV the monster will stay alert
-                // Otherwise the monster will quit chasing the player.
-                if (monster.TurnsAlerted > 15)
-                {
-                    monster.TurnsAlerted = null;
-                }
+            // lose alerted status after 10 turns out of fov
+            if (monster.TurnsAlerted > 10)
+            {
+                monster.TurnsAlerted = null;
             }
             return true;
+
         }
     }
 }
