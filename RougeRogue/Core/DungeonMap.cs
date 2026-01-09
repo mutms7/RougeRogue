@@ -8,12 +8,14 @@ namespace  RougeRogue.Core
     {
         public List<Rectangle> Rooms;
         private readonly List<Monster> _monsters;
+        public List<Door> Doors { get; set; }
 
         public DungeonMap()
         {
             // Initialize the list of rooms when we create a new DungeonMap
             Rooms = new List<Rectangle>();
             _monsters = new List<Monster>();
+            Doors = new List<Door>();
         }
         // This method will be called any time we move the player to update field-of-view
         public void UpdatePlayerFieldOfView()
