@@ -182,14 +182,17 @@ namespace RougeRogue.Systems
 
             foreach (Cell cell in borderCells)
             {
-                // a door must block fov when closed
-                _map.SetCellProperties(cell.X, cell.Y, false, true);
-                _map.Doors.Add(new Door
+                if (IsPotentialDoor(cell))
                 {
-                    X = cell.X,
-                    Y = cell.Y,
-                    IsOpen = false
-                });
+                    // a door must block fov when closed
+                    _map.SetCellProperties(cell.X, cell.Y, false, true);
+                    _map.Doors.Add(new Door
+                    {
+                        X = cell.X,
+                        Y = cell.Y,
+                        IsOpen = false
+                    });
+                }
             }
         }
 
@@ -197,7 +200,10 @@ namespace RougeRogue.Systems
         {
             // if cell not walkable
             // then it is wall
-            if (!cell.IsWalkable) return false;
+            if (!cell.IsWalkable)
+            {
+                return false;
+            }
 
             Cell right = _map.GetCell(cell.X + 1, cell.Y);
             Cell left = _map.GetCell(cell.X - 1, cell.Y);
