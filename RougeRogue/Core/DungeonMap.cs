@@ -17,6 +17,28 @@ namespace  RougeRogue.Core
             _monsters = new List<Monster>();
             Doors = new List<Door>();
         }
+
+        // Return the door at the x,y position or null if one is not found.
+        public Door GetDoor(int x, int y)
+        {
+            return Doors.SingleOrDefault(d => d.X == x && d.Y == y);
+        }
+
+        // The actor opens the door located at the x,y position
+        private void OpenDoor(Actor actor, int x, int y)
+        {
+            Door door = GetDoor(x, y);
+            if (door != null)
+            {
+                door.IsOpen = true;
+                var cell = GetCell(x, y);
+                // once door opened marked as transparent and no block fov
+                SetCellProperties(x, y, true, cell.IsWalkable, cell.IsExplored);
+                Game.MessageLog.Add($"{actor.Name} opened a door");
+            }
+        }
+       
+
         // This method will be called any time we move the player to update field-of-view
         public void UpdatePlayerFieldOfView()
         {
@@ -54,6 +76,11 @@ namespace  RougeRogue.Core
                     monster.DrawStats(statConsole, i);
                     i++;
                 }
+            }
+
+            foreach (Door door in Doors)
+            {
+                door.Draw(mapConsole, this);
             }
         }
         private void SetConsoleSymbolForCell(RLConsole console, Cell cell)
@@ -104,6 +131,7 @@ namespace  RougeRogue.Core
                 actor.Y = y;
                 // the new cell the actor is on is now not walkable
                 SetIsWalkable(actor.X, actor.Y, false);
+                OpenDoor(actor, x, y);
                 // don't forget to update the field of view if we repositioned
                 if (actor is Player)
                 {

@@ -166,5 +166,32 @@ namespace RougeRogue.Systems
             }
         }
 
+        private void CreateDoors(Rectangle room)
+        {
+            int xMin = room.Left;
+            int xMax = room.Right;
+            int yMin = room.Top;
+            int yMax = room.Bottom;
+
+            // room border cells in list
+            List<Cell> borderCells = _map.GetCellsAlongLine(xMin, yMin, xMax, yMin).ToList();
+            borderCells.AddRange(_map.GetCellsAlongLine(xMin, yMin, xMin, yMax));
+            borderCells.AddRange(_map.GetCellsAlongLine(xMin, yMax, xMax, yMax));
+            borderCells.AddRange(_map.GetCellsAlongLine(xMax, yMin, xMax, yMax));
+
+            foreach (Cell cell in borderCells)
+            {
+                // a door must block fov when closed
+                _map.SetCellProperties(cell.X, cell.Y, false, true);
+                _map.Doors.Add(new Door
+                {
+                    X = cell.X,
+                    Y = cell.Y,
+                    IsOpen = false
+                });
+            }
+        }
+
+
     }
 }
