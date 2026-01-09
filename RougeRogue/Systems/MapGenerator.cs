@@ -89,6 +89,7 @@ namespace RougeRogue.Systems
             foreach (Rectangle room in _map.Rooms)
             {
                 CreateRoom(room);
+                CreateDoors(room);
             }
 
             PlacePlayer();
@@ -192,6 +193,36 @@ namespace RougeRogue.Systems
             }
         }
 
+        private bool IsPotentialDoor(Cell cell)
+        {
+            // if cell not walkable
+            // then it is wall
+            if (!cell.IsWalkable) return false;
 
+            Cell right = _map.GetCell(cell.X + 1, cell.Y);
+            Cell left = _map.GetCell(cell.X - 1, cell.Y);
+            Cell top = _map.GetCell(cell.X, cell.Y - 1);
+            Cell bottom = _map.GetCell(cell.X, cell.Y + 1);
+
+            // Make sure no door already
+            if (_map.GetDoor(cell.X, cell.Y) != null ||
+                _map.GetDoor(right.X, right.Y) != null ||
+                _map.GetDoor(left.X, left.Y) != null ||
+                _map.GetDoor(top.X, top.Y) != null ||
+                _map.GetDoor(bottom.X, bottom.Y) != null)
+            {
+                return false;
+            }
+
+            if (right.IsWalkable && left.IsWalkable && !top.IsWalkable && !bottom.IsWalkable)
+            {
+                return true;
+            }
+            if (!right.IsWalkable && !left.IsWalkable && top.IsWalkable && bottom.IsWalkable)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
