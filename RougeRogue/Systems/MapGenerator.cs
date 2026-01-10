@@ -17,6 +17,8 @@ namespace RougeRogue.Systems
         private readonly int _maxRooms;
         private readonly int _roomMaxSize;
         private readonly int _roomMinSize;
+        private readonly int _mapLevel;
+
 
         private readonly DungeonMap _map;
 
@@ -30,7 +32,9 @@ namespace RougeRogue.Systems
             _maxRooms = maxRooms;
             _roomMaxSize = roomMaxSize;
             _roomMinSize = roomMinSize;
+            _mapLevel = mapLevel;
             _map = new DungeonMap();
+
         }
 
 
@@ -94,7 +98,7 @@ namespace RougeRogue.Systems
 
             CreateStairs();
             PlacePlayer();
-            PlaceMonsters();
+            PlaceMonsters(_mapLevel);
 
             return _map;
         }
@@ -146,7 +150,7 @@ namespace RougeRogue.Systems
             }
         }
 
-        private void PlaceMonsters()
+        private void PlaceMonsters(int level)
         {
             foreach (var room in _map.Rooms)
             {
@@ -158,7 +162,7 @@ namespace RougeRogue.Systems
                         Point randomRoomLocation = _map.GetRandomWalkableLocationInRoom(room);
                         if (randomRoomLocation != null)
                         {
-                            var monster = Kobold.Create(1);
+                            var monster = Kobold.Create(level);
                             monster.X = randomRoomLocation.X;
                             monster.Y = randomRoomLocation.Y;
                             _map.AddMonster(monster);
