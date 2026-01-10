@@ -9,9 +9,12 @@ namespace  RougeRogue.Core
         public List<Rectangle> Rooms;
         private readonly List<Monster> _monsters;
         public List<Door> Doors { get; set; }
+        public Stairs StairsUp { get; set; }
+        public Stairs StairsDown { get; set; }
 
         public DungeonMap()
         {
+            Game.SchedulingSystem.Clear();
             // Initialize the list of rooms when we create a new DungeonMap
             Rooms = new List<Rectangle>();
             _monsters = new List<Monster>();
@@ -82,6 +85,9 @@ namespace  RougeRogue.Core
             {
                 door.Draw(mapConsole, this);
             }
+
+            StairsUp.Draw(mapConsole, this);
+            StairsDown.Draw(mapConsole, this);
         }
         private void SetConsoleSymbolForCell(RLConsole console, Cell cell)
         {
@@ -218,6 +224,12 @@ namespace  RougeRogue.Core
         public Monster GetMonsterAt(int x, int y)
         {
             return _monsters.FirstOrDefault(m => m.X == x && m.Y == y);
+        }
+
+        public bool CanMoveDownToNextLevel()
+        {
+            Player player = Game.Player;
+            return StairsDown.X == player.X && StairsDown.Y == player.Y;
         }
     }
 

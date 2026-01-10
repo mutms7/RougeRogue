@@ -9,6 +9,7 @@ namespace RougeRogue
     public static class Game
     {
         private static bool _renderRequired = true;
+        private static int _mapLevel = 1;
         public static CommandSystem CommandSystem { get; private set; }
         // The screen height and width are in number of tiles
         private static readonly int _screenWidth = 100;
@@ -48,7 +49,7 @@ namespace RougeRogue
             Random = new DotNetRandom(seed);
 
             // The title will appear at the top of the console window, with the seed used
-            string consoleTitle = $"RougeSharp V3 Tutorial - Level 1 - Seed {seed}";
+            string consoleTitle = $"RougeSharp V3 Tutorial - Level {_mapLevel} - Seed {seed}";
 
             // This must be the exact name of the bitmap font file we are using or it will error.
             string fontFileName = "terminal8x8.png";
@@ -75,7 +76,7 @@ namespace RougeRogue
             _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Swatch.DbWood);
             _inventoryConsole.Print(1, 1, "Inventory", Colors.TextHeading);
             
-            MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight, 20, 15, 10);
+            MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight, 20, 15, 10, _mapLevel);
             DungeonMap = mapGenerator.CreateMap();
             DungeonMap.UpdatePlayerFieldOfView();
             // Set up a handler for RLNET's Update event
@@ -113,6 +114,18 @@ namespace RougeRogue
                     else if (keyPress.Key == RLKey.Escape)
                     {
                         _rootConsole.Close();
+                    }
+                    else if (keyPress.Key == RLKey.Period)
+                    {
+                        if (DungeonMap.CanMoveDownToNextLevel())
+                        {
+                            MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight, 20, 15, 10, ++_mapLevel);
+                            DungeonMap = mapGenerator.CreateMap();
+                            MessageLog = new MessageLog();
+                            CommandSystem = new CommandSystem();
+                            _rootConsole.Title = $"RougeSharp RLNet Tutorial - Level {_mapLevel}";
+                            didPlayerAct = true;
+                        }
                     }
                 }
 
